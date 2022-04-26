@@ -7,7 +7,7 @@ const  Dashboard = ()=> {
       <Layout className='layout'>
         <Content style={{padding: "0 50px"}}>
           <div className='site-layout-content' style={{margin: "100px auto"}}>
-            <h1>All Medicine</h1>
+            <h1>Alcohol order:</h1>
              <Drinks />
           </div>
         </Content>
