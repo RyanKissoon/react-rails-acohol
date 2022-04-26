@@ -49,14 +49,14 @@ export default class AddDrinkModal extends Component {
         <Button type='primary' onClick={this.showModal}>
           Create New + 
         </Button>      
-        <Modal title="Add New Medicine ..." visible={this.state.visible}
+        <Modal title="Add New" visible={this.state.visible}
          onCancel={this.handleCancel} footer={null}>
            <Form ref={this.formRef} layout="vertical" onFinish={this.onFinish}>
-            <Form.Item name="brand" label="Brand" rules={[{required: true, message: "Please input your medicine brand!"}]}>
-              <Input placeholder='Input your medicine brand' />
+            <Form.Item name="brand" label="Brand" rules={[{required: true, message: "Please input your brand!"}]}>
+              <Input placeholder='Input your brand' />
             </Form.Item>
-            <Form.Item name="style" label="Style" rules={[{ required: true, message: "Please input your medicine style!" }]}>
-              <Input placeholder="Input your medicine style" />
+            <Form.Item name="style" label="Style" rules={[{ required: true, message: "Please input your style!" }]}>
+              <Input placeholder="Input your style" />
             </Form.Item>
             <Form.Item
               name="country"
@@ -68,8 +68,8 @@ export default class AddDrinkModal extends Component {
                 },
               ]}
             >
-              <Select showSearch placeholder="Select your medicine country" optionFilterProp="children" style={{ width: "100%" }}>
-                <Option value="Finland">Finland</Option>
+              <Select showSearch placeholder="Select your country" optionFilterProp="children" style={{ width: "100%" }}>
+                <Option value="Japan">Japan</Option>
                 <Option value="Germany">Germany</Option>
                 <Option value="Netherlands">Netherlands</Option>
                 <Option value="UK">UK</Option>
@@ -78,10 +78,10 @@ export default class AddDrinkModal extends Component {
               </Select>
             </Form.Item>
             <Form.Item name="quantity" label="Quantity" rules={[{ required: true, message: "Please input the quantity!" }]}>
-              <Input type="number" placeholder="How many medicine you desire?" />
+              <Input type="number" placeholder="How many do you desire?" />
             </Form.Item>
             <Form.Item name="description" label="Description" rules={[{ required: true, message: "Please input the description!" }]}>
-              <TextArea placeholder='Input your medicine description' />
+              <TextArea placeholder='Input your description' />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
