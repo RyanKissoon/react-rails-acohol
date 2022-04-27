@@ -81,7 +81,7 @@ export default class AddDrinkModal extends Component {
               <Input type="number" placeholder="How many do you desire?" />
             </Form.Item>
             <Form.Item name="description" label="Description" rules={[{ required: true, message: "Please input the description!" }]}>
-              <TextArea placeholder='Input your description' />
+              <TextArea placeholder='Input your description please' />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
