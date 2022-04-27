@@ -1,18 +1,43 @@
-import React, { Component } from 'react'
-import { Button, Form, Input, Modal, Select } from 'antd';
+import React, { Component , useState} from 'react'
+import { Button, Form, Input, Modal, Select} from 'antd';
+import Dashboard from './Dashboard';
 const {Option} = Select
-
+import axios from 'axios'
 export default class EditDrinkModal extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      visible: false
+      visible: false,
+      drink: {
+        brand: '',
+        style: '',
+        country: '',
+        quantity: '',
+        description: ''
+      },
+      isSubmitted: false,
     }
+   
   }
+  
+    
+  // renderErrorMessage = (name) =>
+  //   name === errorMessages.name && (
+  //     <div className="error">{errorMessages.message}</div>
+  //   );
   formRef = React.createRef();
+  
   onFinish = (values) => {
-    const url = "api/v1/drinks/update";
-    fetch(url, {
+    let str = '';
+    str = window.location.pathname;
+    str = str.split('/')
+    const id = str[str.length-1]
+    const url = `/api/v1/drinks/${id}`;
+    axios.delete(url).then((res) => {
+     console.log(res); 
+    })
+    const url1 = '/api/v1/drinks/create';
+    fetch(url1, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -24,10 +49,39 @@ export default class EditDrinkModal extends Component {
         return data.json()
       }
       throw new Error("Network error")
+    }).then(() => {
+      this.setState({
+        isSubmitted:true,
+        visible: false
+      })
     }).catch((err) => {
       console.error("Error: " + err)
     })  
+    // window.location.pathname = "/";
+    {isSubmitted? <Dashboard/>: ''}
+
   }
+  
+  showDrink = (id) => {
+    const url = `/api/v1/drinks/${id}`;
+    axios.get(url).then((res) => {
+      this.setState({
+        drink:res.data
+      });
+    })
+  }
+  
+  componentDidMount = () => {
+    let str = '';
+    str = window.location.pathname;
+    str = str.split('/')
+    this.setState({
+      visible: true,
+    });
+    this.showDrink(str[str.length-1]);
+  }
+    
+
   showModal = () => {
     this.setState({
       visible: true
@@ -37,20 +91,25 @@ export default class EditDrinkModal extends Component {
     this.setState({
       visible: false
     })  
+    {<Dashboard/> }
   }
 
 
   render() {
+    const {isSubmitted, visible, drink} = this.state;
+    console.log(this.state);
     return (
       <>
-        <Modal title="Add New Drink ..." visible={this.state.visible}
-         onCancel={this.handleCancel} footer={null}>
+        {isSubmitted && !visible ? <Dashboard/> :
+        <Modal title="Update  Drink ..." visible={visible}
+         onCancel={this.handleCancel}
+         footer={null}>
            <Form ref={this.formRef} layout="vertical" onFinish={this.onFinish}>
             <Form.Item name="brand" label="Brand" rules={[{required: true, message: "Please input your drink brand!"}]}>
-              <Input placeholder='Input your drink brand' />
+              <Input placeholder={drink.brand} />
             </Form.Item>
             <Form.Item name="style" label="Style" rules={[{ required: true, message: "Please input your beer style!" }]}>
-              <Input placeholder="Input your beer style" />
+              <Input placeholder={drink.style} />
             </Form.Item>
             <Form.Item
               name="country"
@@ -62,7 +121,7 @@ export default class EditDrinkModal extends Component {
                 },
               ]}
             >
-              <Select showSearch placeholder="Select your beer country" optionFilterProp="children" style={{ width: "100%" }}>
+              <Select showSearch name="country" placeholder={drink.country} optionFilterProp="children" style={{ width: "100%" }}>
                 <Option value="Finland">Finland</Option>
                 <Option value="Germany">Germany</Option>
                 <Option value="Netherlands">Netherlands</Option>
@@ -72,9 +131,11 @@ export default class EditDrinkModal extends Component {
               </Select>
             </Form.Item>
             <Form.Item name="quantity" label="Quantity" rules={[{ required: true, message: "Please input the quantity!" }]}>
-              <Input type="number" placeholder="How many beers you desire?" />
+              <Input type="number"  placeholder={drink.quantity} />
             </Form.Item>
-
+            <Form.Item name="description" label="Description" rules={[{ required: true, message: "Please input the description!" }]}>
+              <Input  placeholder={drink.description} type="text" />
+            </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
                 Submit
@@ -82,6 +143,7 @@ export default class EditDrinkModal extends Component {
             </Form.Item>
            </Form>
         </Modal>  
+  }
       </>
     )
   }

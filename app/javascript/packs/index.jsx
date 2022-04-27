@@ -12,6 +12,8 @@ import Guest from '../components/Guest'
 import 'antd/dist/antd.css';
 import Logout from '../components/Logout';
 import Signup from '../components/Signup'
+import EditDrinkModal from '../components/EditDrinkModal';
+import Dashboard from '../components/Dashboard';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <Route path="/guest" element={<Guest/>} />
           <Route path="/admin" element={<Admin/>} />
           <Route path="/logout" element={<Logout/>}/>
+          <Route path="/update/:id" element={<EditDrinkModal/>}/>
           <Route path='/signup' render={()=><Signup user={this.props.user} />} element={<Signup/>} />
           <Route path="*" element={
             <div style={{pading: "1rem"}}>

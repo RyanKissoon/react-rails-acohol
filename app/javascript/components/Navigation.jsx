@@ -14,6 +14,7 @@ const Navigation = () => {
         <Link to="/admin">Admin {"  "} </Link>
         <Link to="/logout">{" "} Logout </Link>
         <Link to="/signup">{" "} Sign Up </Link>
+        
         {/* <Link to="/dashboard">Dashboard</Link> */}
         {/* <Link to="/edit/:id"></Link> */}
       </nav>

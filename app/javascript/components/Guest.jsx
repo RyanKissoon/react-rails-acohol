@@ -4,7 +4,7 @@ export default class Guest extends Component {
   render() {
     return (
       <div>
-        coming soon!
+        This User is Guest.....
       </div>
     )
   }

@@ -8,9 +8,10 @@ Rails.application.routes.draw do
       get 'drinks/index'
       post 'drinks/create'
       delete 'drinks/:id', to: 'drinks#destroy'
-      get 'drinks/show/:id', to: 'drinks#show'
+      put 'drinks/:id', to: 'drinks#update'
+      get 'drinks/:id', to: 'drinks#show'
       post 'users/create'
-      get 'users/show/:id', to: 'users#show'
+      get 'users/:id', to: 'users#show'
     end
   end
 

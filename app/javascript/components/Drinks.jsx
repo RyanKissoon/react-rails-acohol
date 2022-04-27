@@ -2,6 +2,7 @@ import { Form, Modal, Popconfirm, Table, Input} from 'antd';
 import React, { Component } from 'react'
 import AddDrinkModal from './AddDrinkModal';
 import EditDrinkModal from './EditDrinkModal';
+import {Link} from 'react-router-dom'
 export default class Drinks extends Component {
   constructor() {
     super();
@@ -48,54 +49,32 @@ export default class Drinks extends Component {
       
     )
    }
-  // ,
-  // {
-  //   title: "",
-  //   key: "action2",
-  //   render: (_text, record) => (
+  ,
+  {
+    title: "",
+    key: "action2",
+    render: (_text, record) => (
       
-  //     <Popconfirm title="Are you sure to show this drink?" onConfirm={() => this.showDrink(record.id)} okText="Yes" cancelText="No">
-  //       <a href="#" type="primary">
-  //         Description Add{" "}
-  //       </a>
-  //     </Popconfirm>
+      // <Popconfirm title="Are you sure to show this drink?" onConfirm={() => this.showDrink(record.id)} okText="Yes" cancelText="No">
+      //   <a href="#" type="primary">
+      //     Description Add{" "}
+      //   </a>
+      // </Popconfirm>
       
-  //     <div>
-  //       <button onClick={()=>this.showDrink.bind(this, record.id)}>
-  //         Description Add{" "}
-  //       </button>
-  //     </div>
-  //   ),
-  // }
+      <div>
+        <Link to={ `/update/${record.id}`}>
+          Edit{" "}
+        </Link>
+      </div>
+      
+    ),
+  }
 ]
 
-showDrink = (id) => {
-  alert(id);
-  const url = `api/v1/drinks/show/${id}`;
-  fetch(url)
-    .then((data) => {
-      if(data.ok){
-        return data.json()
-      }
-      throw new Error("Network error.");
-    }).then((data) => {
-      
-      this.setState({
-        drink: data
-      });
 
-    }).catch(err=>console.error("Error: " + err));  
-    
-    <Modal>
-      <Form>
-        <Form.Item name="brand" label="Brand" rules={[{required: true, message: "Please input your drink brand!"}]}>
-          <Input value={this.state.brand} placeholder='Input your drink brand' />
-        </Form.Item>
-      </Form>
-    </Modal>
-}
+  
   loadDrinks = () => {
-    const url = "api/v1/drinks/index";
+    const url = "/api/v1/drinks/index";
     fetch(url)
       .then((data)=>{
         if (data.ok) {
